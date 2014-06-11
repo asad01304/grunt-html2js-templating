@@ -1,7 +1,7 @@
 {
   "name": "grunt-html2js-templating",
   "description": "converts html files to js template and merge them as template.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/asad01304/grunt-html2js-templating",
   "author": {
     "name": "Asad Rahman",
