@@ -37,17 +37,17 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.shortNaming
+Type: bool
+Default value: true
+
+Whether take only the file name or the entire file path as template name
+
+#### options.pathRemove
 Type: `String`
-Default value: `',  '`
+Default value: ""
 
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+in case of options.shortNaming : false, pathValue to be removed from the full path to create template name
 
 ### Usage Examples
 
