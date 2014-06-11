@@ -56,12 +56,14 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  html2js_templating: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    html2js_templating: {
+        default_options : {
+            options: {},
+            files: {
+                "src/public/js/template.js" : "src/Resources/templates/*"
+            }
+        }
     },
-  },
 });
 ```
 
@@ -70,15 +72,14 @@ In this example, custom options are used to do something else with whatever else
 
 ```js
 grunt.initConfig({
-  html2js_templating: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
+    html2js_templating: {
+        options: {
+            shortNaming : true
+        },
+        files: {
+            "src/public/js/template.js" : ["src/Resources/templates/menue.html", "src/Resources/templates/topHeader.html"]
+        },
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
 });
 ```
 
