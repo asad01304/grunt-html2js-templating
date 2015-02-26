@@ -28,11 +28,17 @@ module.exports = function (grunt) {
         }
 
         var name =  filepath
-            .replace(/\.\./, '')
-            .replace(/\.html/i, "")
-            .replace(/\/([a-z])/g, function (v) {
-                return v.replace("/", "").toUpperCase();
-            });
+            .replace(/\.\./g, '')
+            .replace(/\.html/i, "");
+
+
+        name = name.replace(/\/(.)/g, function(match, group1) {
+            return group1.charAt(0).toUpperCase();
+        });
+
+        name = name.replace(/-(.)/g, function(match, group1) {
+            return group1.toUpperCase();
+        });
 
         return name.charAt(0).toUpperCase() + name.slice(1);
     }
@@ -50,9 +56,9 @@ module.exports = function (grunt) {
             pathRemove : ""
         });
 
-        var Templates = {};
-        // Iterate over all specified file groups.
         this.files.forEach(function (files) {
+
+            var Templates = {};
 
             files.src.filter(function (filepath) {
 
@@ -66,16 +72,16 @@ module.exports = function (grunt) {
 
             }).map(function (filepath) {
 
-                var html = grunt.file.read(filepath);
-                html = prepareTemplate(html);
+                    var html = grunt.file.read(filepath);
+                    html = prepareTemplate(html);
 
-                var name = options.shortNaming ?
-                    getShortName(filepath) : getFullName(filepath, options.pathRemove);
+                    var name = options.shortNaming ?
+                        getShortName(filepath) : getFullName(filepath, options.pathRemove);
 
-                Templates[name] = html;
-                return html;
+                    Templates[name] = html;
+                    return html;
 
-            });
+                });
 
             // Write the destination file.
             grunt.file.write(files.dest, "var Templates = " + JSON.stringify(Templates));
