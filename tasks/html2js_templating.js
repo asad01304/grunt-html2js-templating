@@ -36,7 +36,7 @@ module.exports = function (grunt) {
             return group1.charAt(0).toUpperCase();
         });
 
-        name = name.replace(/-(.)/g, function(match, group1) {
+        name = name.replace(/[-_](.)/g, function(match, group1) {
             return group1.toUpperCase();
         });
 
@@ -59,6 +59,7 @@ module.exports = function (grunt) {
         this.files.forEach(function (files) {
 
             var Templates = {};
+            var TempStr = "var Templates = Templates || {}; \n";
 
             files.src.filter(function (filepath) {
 
@@ -78,13 +79,15 @@ module.exports = function (grunt) {
                     var name = options.shortNaming ?
                         getShortName(filepath) : getFullName(filepath, options.pathRemove);
 
+                    TempStr += "Templates[\"" + name + "\"] = " + JSON.stringify(html) + "; \n"
                     Templates[name] = html;
                     return html;
 
                 });
 
             // Write the destination file.
-            grunt.file.write(files.dest, "var Templates = " + JSON.stringify(Templates));
+            //grunt.file.write(files.dest, "var Templates = Templates || {}; ||" + JSON.stringify(Templates));
+            grunt.file.write(files.dest, TempStr);
 
             // Print a success message.
             grunt.log.writeln('File "' + files.dest + '" created.');
